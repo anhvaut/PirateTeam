@@ -109,10 +109,6 @@ public class MainActivity extends AppCompatActivity {
                 R.string.app_name);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
-
-
-
-
     }
 
 
