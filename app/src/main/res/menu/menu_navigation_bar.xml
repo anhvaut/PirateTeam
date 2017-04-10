@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_item_trang_chu"
+        android:icon="@drawable/home"
+        android:title="@string/title_trang_chu" />
+    <item
+        android:icon="@drawable/news2"
+        android:id="@+id/nav_item_thoi_su"
+        android:title="@string/title_thoi_su" />
+
+    <item
+        android:icon="@drawable/world1"
+        android:id="@+id/nav_item_the_gioi"
+        android:title="@string/title_the_gioi" />
+
+    <item
+        android:icon="@drawable/movie"
+        android:id="@+id/nav_item_giai_tri"
+        android:title="@string/title_giai_tri" />
+
+    <item
+        android:icon="@drawable/law"
+        android:id="@+id/nav_item_phap_luat"
+        android:title="@string/title_phap_luat" />
+    <item
+        android:icon="@drawable/sport"
+        android:id="@+id/nav_item_the_thao"
+        android:title="@string/title_the_thao" />
+    <item
+        android:icon="@drawable/education"
+        android:id="@+id/nav_item_giao_duc"
+        android:title="@string/title_giao_duc" />
+    <item
+        android:icon="@drawable/health"
+        android:id="@+id/nav_item_suc_khoe"
+        android:title="@string/title_suc_khoe" />
+    <item
+        android:icon="@drawable/chat"
+        android:id="@+id/nav_item_tam_su"
+        android:title="@string/title_tam_su" />
+
+    <item android:title="Others">
+        <menu>
+            <item
+                android:icon="@drawable/setting"
+                android:id="@+id/nav_item_setting"
+                android:title="Setting" />
+        </menu>
+    </item>
+</menu>

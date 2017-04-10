@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">PirateNews</string>
+    <string name="title_app_name">Pirate News</string>
+    <string name="title_team_name">Pirate Team</string>
+    <string name="title_trang_chu">Trang Chủ</string>
+    <string name="title_the_thao">Thể Thao</string>
+    <string name="title_thoi_su">Thời Sự</string>
+    <string name="title_the_gioi">Thế Giới</string>
+    <string name="title_giai_tri">Giải Trí</string>
+    <string name="title_phap_luat">Pháp Luật</string>
+    <string name="title_giao_duc">Giáo Dục</string>
+    <string name="title_suc_khoe">Sức Khỏe</string>
+    <string name="title_tam_su">Tâm Sự</string>
+    <string name="title_setting">Cài đặt</string>
+    <string name="title_tat_ca">Tất Cả</string>
+    <string name="title_noi_bat">Nổi Bật</string>
+    <string name="title_size_text">Size</string>
+    <string name="title_font_text">Font</string>
+    <string name="title_background">Background</string>
+    <string name="title_about">About</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
