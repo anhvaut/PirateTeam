@@ -11,9 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
-        android:background="?attr/colorPrimary"
+        android:background="@color/colorBelizeHole"
         android:elevation="6dp"
-        android:minHeight="?attr/actionBarSize"
+        android:minHeight="@dimen/activity_vertical_margin"
         app:tabTextColor="@color/colorMidnightBlue"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 

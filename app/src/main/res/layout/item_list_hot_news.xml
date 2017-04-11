@@ -17,6 +17,7 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/text_size_medium"
         android:textStyle="bold"
+        android:layout_marginTop="@dimen/activity_vertical_margin_small"
         android:layout_below="@+id/imgItemNews"
         android:text="Title" />
 
@@ -26,6 +27,8 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/text_size_small"
         android:paddingRight="@dimen/activity_vertical_margin_small"
+        android:layout_marginTop="@dimen/activity_vertical_margin_small"
+        android:layout_marginBottom="@dimen/activity_vertical_margin_small"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/tvItemTitle"
         android:text="Date" />
