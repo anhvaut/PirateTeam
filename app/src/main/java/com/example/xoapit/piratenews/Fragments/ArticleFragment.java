@@ -99,8 +99,13 @@ public class ArticleFragment extends Fragment {
                     @Override
                     public void onItemClick(View view, int position) {
                         Intent intent = new Intent(getActivity(), ContentActivity.class);
+<<<<<<< HEAD
                         intent.putExtra("URL", mArticles.get(position).getLink());
                         Toast.makeText(getActivity(), mArticles.get(position).getLink(), Toast.LENGTH_SHORT).show();
+=======
+                        intent.putExtra("URL",mArticles.get(position).getLink());
+                        //Toast.makeText(getActivity(),mArticles.get(position).getLink(),Toast.LENGTH_SHORT).show();
+>>>>>>> origin/Xoapit
                         startActivityForResult(intent, 1);
                     }
                 })
@@ -119,6 +124,7 @@ public class ArticleFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String s) {
+<<<<<<< HEAD
             try {
                 XmlParser parser = new XmlParser();
                 Document document = parser.getDocument(s);
@@ -132,6 +138,21 @@ public class ArticleFragment extends Fragment {
                 for (int i = 0; i < nodeList.getLength(); i++) {
                     try {
                         String cdata = nodeListDescription.item(i + 1).getTextContent();
+=======
+            XmlParser parser = new XmlParser();
+            Document document = parser.getDocument(s);
+            NodeList nodeList= document.getElementsByTagName("item");
+            NodeList nodeListDescription= document.getElementsByTagName("description");
+
+            String img="";
+            String title="";
+            String link="";
+            String time="";
+            if (mType == 1 ){
+                for(int i=0; i<4 ;i++){
+                    try {
+                        String cdata = nodeListDescription.item(i+1).getTextContent();
+>>>>>>> origin/Xoapit
                         Pattern p = Pattern.compile("<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>");
                         Matcher matcher = p.matcher(cdata);
                         if (matcher.find()) {
@@ -142,8 +163,13 @@ public class ArticleFragment extends Fragment {
                         title = parser.getValue(element, "title");
                         link = parser.getValue(element, "link");
                         time = parser.getValue(element, "pubDate");
+<<<<<<< HEAD
                         mArticles.add(new Article(title, img, link, time));
                     } catch (Exception e) {
+=======
+                        mArticles.add(new Article(title,img,link,time));
+                    }catch (Exception e){
+>>>>>>> origin/Xoapit
                         Toast.makeText(getActivity(), "Error when parse", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -153,6 +179,32 @@ public class ArticleFragment extends Fragment {
             }catch (Exception e){
                 Toast.makeText(getContext(),"Not Connected",Toast.LENGTH_LONG).show();
             }
+<<<<<<< HEAD
+=======
+            else {
+                for(int i=0; i<nodeList.getLength();i++){
+                    try {
+                        String cdata = nodeListDescription.item(i+1).getTextContent();
+                        Pattern p = Pattern.compile("<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>");
+                        Matcher matcher = p.matcher(cdata);
+                        if (matcher.find()) {
+                            img = matcher.group(1);
+                        }
+
+                        Element element = (Element) nodeList.item(i);
+                        title = parser.getValue(element, "title");
+                        link = parser.getValue(element, "link");
+                        time = parser.getValue(element, "pubDate");
+                        mArticles.add(new Article(title,img,link,time));
+                    }catch (Exception e){
+                        Toast.makeText(getActivity(), "Error when parse", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            mArticleAdapter.notifyDataSetChanged();
+            super.onPostExecute(s);
+>>>>>>> origin/Xoapit
         }
     }
 
