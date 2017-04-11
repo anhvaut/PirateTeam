@@ -71,7 +71,11 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.MyViewHo
         Article article = mArticles.get(position);
         holder.mTvTitle.setText(article.getTitle());
         holder.mTvTime.setText(article.getTime());
-        Picasso.with(this.mContext).load(article.getImg()).into(holder.mImgNews);
+        try {
+            Picasso.with(this.mContext).load(article.getImg()).into(holder.mImgNews);
+        }catch (Exception e){
+
+        }
     }
 
     @Override
