@@ -14,14 +14,11 @@
             android:layout_width="0dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/activity_vertical_margin_small"
             android:layout_weight="4" />
 
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_vertical_margin_small"
-            android:layout_marginLeft="@dimen/activity_vertical_margin_small"
             android:layout_weight="6"
             android:orientation="vertical">
 
@@ -38,10 +35,10 @@
                 android:id="@+id/tvItemDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_below="@id/tvItemTitle"
                 android:gravity="right"
-                android:paddingRight="@dimen/activity_vertical_margin_small"
+                android:layout_below="@id/tvItemTitle"
+
+                android:paddingRight="@dimen/activity_horizontal_margin"
                 android:text="Date Time"
                 android:textSize="@dimen/text_size_small" />
 
@@ -51,6 +48,6 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/colorClouds" />
+        android:background="@color/colorAlizarin" />
 
 </TableLayout>

@@ -1,21 +1,15 @@
 package com.example.xoapit.piratenews.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.xoapit.piratenews.Activities.ContentActivity;
 import com.example.xoapit.piratenews.Model.Article;
 import com.example.xoapit.piratenews.R;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 import java.util.List;
 
@@ -33,13 +27,13 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.MyViewHo
         this.mArticles = articles;
         this.mContext = context;
         this.mInflater = LayoutInflater.from(context);
-        this.mType = type;
+        this.mType=type;
     }
 
     @Override
     public ArticleAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView;
-        if (mType == 0) {
+        if(mType==0){
             switch (viewType) {
                 case 0:
                     itemView = mInflater.inflate(R.layout.item_list_hot_news, parent, false);
@@ -47,9 +41,9 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.MyViewHo
                 default:
                     itemView = mInflater.inflate(R.layout.item_list_news, parent, false);
             }
-        } else if (mType == 1) {
+        }else if(mType==1){
             itemView = mInflater.inflate(R.layout.item_list_hot_news, parent, false);
-        } else {
+        }else{
             itemView = mInflater.inflate(R.layout.item_list_news, parent, false);
         }
 
@@ -71,7 +65,6 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.MyViewHo
         Article article = mArticles.get(position);
         holder.mTvTitle.setText(article.getTitle());
         holder.mTvTime.setText(article.getTime());
-        Picasso.with(this.mContext).load(article.getImg()).into(holder.mImgNews);
     }
 
     @Override

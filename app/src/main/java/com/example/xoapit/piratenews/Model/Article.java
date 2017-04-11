@@ -7,8 +7,7 @@ package com.example.xoapit.piratenews.Model;
 public class Article {
     private String title;
     private String img;
-    private String link;
-    private String time;
+    private String link;    private String time;
 
     public Article(String title, String img, String link, String time) {
         this.title = title;
