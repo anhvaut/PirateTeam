@@ -44,7 +44,10 @@ import java.net.Socket;
 import java.net.SocketAddress;
 import java.net.URL;
 import java.net.URLConnection;
+<<<<<<< HEAD
 import java.sql.Array;
+=======
+>>>>>>> origin/master
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -55,11 +58,19 @@ import java.util.regex.Pattern;
 import static java.security.AccessController.getContext;
 
 public class ArticleFragment extends Fragment {
+<<<<<<< HEAD
     protected List<Article> mArticles;
     protected RecyclerView mRecyclerView;
     protected ArticleAdapter mArticleAdapter;
     protected int mType;
     protected String mUrl;
+=======
+    private List<Article> mArticles;
+    private RecyclerView mRecyclerView;
+    private ArticleAdapter mArticleAdapter;
+    private int mType;
+    private String mUrl;
+>>>>>>> origin/master
 
     public ArticleFragment(String url, int type) {
         this.mType = type;
@@ -134,10 +145,14 @@ public class ArticleFragment extends Fragment {
                 String link = "";
                 String time = "";
 
+<<<<<<< HEAD
                 int numberOfArticles= nodeList.getLength();
                 int numberOfHotNews=5;
                 if(mType==1) numberOfArticles=numberOfHotNews;
                 for(int i=0; i<numberOfArticles ;i++){
+=======
+                for(int i=0; i<4 ;i++){
+>>>>>>> origin/master
                     try {
                         String cdata = nodeListDescription.item(i+1).getTextContent();
                         Pattern p = Pattern.compile("<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>");
@@ -156,6 +171,7 @@ public class ArticleFragment extends Fragment {
                     }
                 }
                 writeArticlesOffline((ArrayList<Article>) mArticles);
+<<<<<<< HEAD
                 if(mType!=1) {
                     Collections.sort(mArticles, new Comparator() {
                         @Override
@@ -166,6 +182,8 @@ public class ArticleFragment extends Fragment {
                         }
                     });
                 }
+=======
+>>>>>>> origin/master
                 mArticleAdapter.notifyDataSetChanged();
                 super.onPostExecute(s);
             }catch (Exception e){
