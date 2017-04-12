@@ -1,6 +1,5 @@
 package com.example.xoapit.piratenews.Activities;
 
-<<<<<<< HEAD
 import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Build;
@@ -10,11 +9,9 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-=======
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
->>>>>>> origin/master
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -29,16 +26,11 @@ public class ContentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content);
-<<<<<<< HEAD
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarContent);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         webView = (WebView)findViewById(R.id.webView);
-=======
-        webView = (WebView)findViewById(R.id.web_view);
->>>>>>> origin/master
         Intent intent = getIntent();
         String linkWeb = intent.getStringExtra("URL");
         webView.loadUrl(linkWeb);
@@ -46,8 +38,6 @@ public class ContentActivity extends AppCompatActivity {
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
-
-<<<<<<< HEAD
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -63,7 +53,5 @@ public class ContentActivity extends AppCompatActivity {
             }
         }
         return super.onOptionsItemSelected(item);
-=======
->>>>>>> origin/master
     }
 }

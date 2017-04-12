@@ -75,11 +75,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.MyViewHo
     public void onBindViewHolder(ArticleAdapter.MyViewHolder holder, int position) {
         Article article = mArticles.get(position);
         holder.mTvTitle.setText(article.getTitle());
-<<<<<<< HEAD
         holder.mTvTime.setText(parseTimeToHourMinute(article.getTime()));
-=======
-        holder.mTvTime.setText(article.getTime());
->>>>>>> origin/master
         try {
             Picasso.with(this.mContext).load(article.getImg()).into(holder.mImgNews);
         }catch (Exception e){
