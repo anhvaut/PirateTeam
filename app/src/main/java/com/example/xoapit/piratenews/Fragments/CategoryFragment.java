@@ -29,31 +29,31 @@ public class CategoryFragment extends Fragment {
     public CategoryFragment(String category) {
         switch (category) {
             case "trangchu":
-                url = "http://vnexpress.net/rss/tin-moi-nhat.rss";
+                url = "http://vietnamnet.vn/rss/home.rss";
                 break;
             case "thoisu":
-                url = "http://vnexpress.net/rss/thoi-su.rss";
+                url = "http://vietnamnet.vn/rss/thoi-su.rss";
                 break;
             case "thegioi":
-                url = "http://vnexpress.net/rss/the-gioi.rss";
+                url = "http://vietnamnet.vn/rss/the-gioi.rss";
                 break;
             case "giaitri":
-                url = "http://vnexpress.net/rss/giai-tri.rss";
+                url = "http://vietnamnet.vn/rss/giai-tri.rss";
                 break;
             case "phapluat":
-                url = "http://vnexpress.net/rss/phap-luat.rss";
+                url = "http://vietnamnet.vn/rss/phap-luat.rss";
                 break;
             case "thethao":
-                url = "http://vnexpress.net/rss/the-thao.rss";
+                url = "http://vietnamnet.vn/rss/the-thao.rss";
                 break;
             case "giaoduc":
-                url = "http://vnexpress.net/rss/giao-duc.rss";
+                url = "http://vietnamnet.vn/rss/giao-duc.rss";
                 break;
             case "suckhoe":
-                url = "http://vnexpress.net/rss/suc-khoe.rss";
+                url = "http://vietnamnet.vn/rss/suc-khoe.rss";
                 break;
             case "tamsu":
-                url = "http://vnexpress.net/rss/tam-su.rss";
+                url = "http://vietnamnet.vn/rss/ban-doc.rss";
                 break;
         }
     }

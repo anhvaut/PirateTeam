@@ -75,7 +75,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.MyViewHo
     public void onBindViewHolder(ArticleAdapter.MyViewHolder holder, int position) {
         Article article = mArticles.get(position);
         holder.mTvTitle.setText(article.getTitle());
-        holder.mTvTime.setText(parseTimeToHourMinute(article.getTime()));
+        holder.mTvTime.setText(getDateFromTime(article.getTime()));
         try {
             Picasso.with(this.mContext).load(article.getImg()).into(holder.mImgNews);
         }catch (Exception e){
@@ -101,20 +101,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.MyViewHo
         }
     }
 
-    public String parseTimeToHourMinute(String time){
-        String strTime=time.substring(17,26);
-        String hh=strTime.substring(0,2);
-        String mm=strTime.substring(3,5);
-        String ss=strTime.substring(6);
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Calendar calendar= Calendar.getInstance(TimeZone.getTimeZone("GMT+7:00"));
-        int hhToday=calendar.get(Calendar.HOUR);
-        int mmToday=calendar.get(Calendar.MINUTE);
-        int ssToday=calendar.get(Calendar.SECOND);
-
-        if((hhToday-Integer.parseInt(hh))>0) return String.valueOf((hhToday-Integer.parseInt(hh)))+" giờ trước";
-        else if((mmToday-Integer.parseInt(mm))>0) return String.valueOf((mmToday-Integer.parseInt(mm)))+" phút trước";
-        else return "vài giây trước";
+    public String getDateFromTime(String time){
+        return time.substring(0,10);
     }
 }

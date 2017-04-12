@@ -128,7 +128,7 @@ public class ArticleFragment extends Fragment {
                 XmlParser parser = new XmlParser();
                 Document document = parser.getDocument(s);
                 NodeList nodeList = document.getElementsByTagName("item");
-                NodeList nodeListDescription = document.getElementsByTagName("description");
+                //NodeList nodeListDescription = document.getElementsByTagName("description");
 
                 String img = "";
                 String title = "";
@@ -139,18 +139,19 @@ public class ArticleFragment extends Fragment {
                 int numberOfHotNews=5;
                 if(mType==1) numberOfArticles=numberOfHotNews;
                 for(int i=0; i<numberOfArticles ;i++){
-                    try {
+                    try {/*
                         String cdata = nodeListDescription.item(i+1).getTextContent();
                         Pattern p = Pattern.compile("<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>");
                         Matcher matcher = p.matcher(cdata);
                         if (matcher.find()) {
                             img = matcher.group(1);
-                        }
+                        }*/
 
                         Element element = (Element) nodeList.item(i);
                         title = parser.getValue(element, "title");
                         link = parser.getValue(element, "link");
                         time = parser.getValue(element, "pubDate");
+                        img=parser.getValue(element, "image");
                         mArticles.add(new Article(title, img, link, time));
                     }catch (Exception e){
                         Toast.makeText(getActivity(), "Error when parse", Toast.LENGTH_SHORT).show();

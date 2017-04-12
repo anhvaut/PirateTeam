@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         //dua fragment vao frame
         mFragmentManager = getSupportFragmentManager();
         mFragmentTransaction = mFragmentManager.beginTransaction();
-        mFragmentTransaction.replace(R.id.content_frame,new ArticleFragment("http://vnexpress.net/rss/tin-moi-nhat.rss",0)).commit();
+        mFragmentTransaction.replace(R.id.content_frame,new ArticleFragment("http://vietnamnet.vn/rss/home.rss",0)).commit();
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
