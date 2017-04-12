@@ -44,7 +44,10 @@ import java.net.Socket;
 import java.net.SocketAddress;
 import java.net.URL;
 import java.net.URLConnection;
+import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -52,11 +55,12 @@ import java.util.regex.Pattern;
 import static java.security.AccessController.getContext;
 
 public class ArticleFragment extends Fragment {
-    private List<Article> mArticles;
-    private RecyclerView mRecyclerView;
-    private ArticleAdapter mArticleAdapter;
-    private int mType;
-    private String mUrl;
+    protected List<Article> mArticles;
+    protected RecyclerView mRecyclerView;
+    protected ArticleAdapter mArticleAdapter;
+    protected int mType;
+    protected String mUrl;
+
 
     public ArticleFragment(String url, int type) {
         this.mType = type;
@@ -131,7 +135,10 @@ public class ArticleFragment extends Fragment {
                 String link = "";
                 String time = "";
 
-                for(int i=0; i<4 ;i++){
+                int numberOfArticles= nodeList.getLength();
+                int numberOfHotNews=5;
+                if(mType==1) numberOfArticles=numberOfHotNews;
+                for(int i=0; i<numberOfArticles ;i++){
                     try {
                         String cdata = nodeListDescription.item(i+1).getTextContent();
                         Pattern p = Pattern.compile("<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>");
@@ -150,6 +157,17 @@ public class ArticleFragment extends Fragment {
                     }
                 }
                 writeArticlesOffline((ArrayList<Article>) mArticles);
+                  if(mType!=1) {
+                    Collections.sort(mArticles, new Comparator() {
+                        @Override
+                        public int compare(Object o1, Object o2) {
+                            Article article1 = (Article) o1;
+                            Article article2 = (Article) o2;
+                            return article1.getTitle().compareToIgnoreCase(article2.getTitle());
+                        }
+                    });
+                }
+
                 mArticleAdapter.notifyDataSetChanged();
                 super.onPostExecute(s);
             }catch (Exception e){

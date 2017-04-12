@@ -72,7 +72,7 @@ public class CategoryFragment extends Fragment {
         // tabLayout.addTab(tabLayout.newTab().setText("Tất cả"));
         //tabLayout.addTab(tabLayout.newTab().setText("Nổi bật"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        final ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
+        final ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewPager);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         viewPager.setAdapter(new PagerAdapter(getFragmentManager(), tabLayout.getTabCount()));
