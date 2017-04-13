@@ -1,27 +1,20 @@
 package com.example.xoapit.piratenews.Activities;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.xoapit.piratenews.Adapter.ArticleAdapter;
 import com.example.xoapit.piratenews.Fragments.ArticleFragment;
 import com.example.xoapit.piratenews.Fragments.CategoryFragment;
-import com.example.xoapit.piratenews.Model.Article;
 import com.example.xoapit.piratenews.R;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -111,8 +104,6 @@ public class MainActivity extends AppCompatActivity {
         mDrawerToggle.syncState();
     }
 
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -123,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.btnSearch: {
-                Intent intent = new Intent(MainActivity.this, SettingActivity.class);
+                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
                 startActivity(intent);
                 break;
             }
