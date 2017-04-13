@@ -2,18 +2,22 @@ package com.example.xoapit.piratenews.Fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.xoapit.piratenews.Activities.ContentActivity;
+import com.example.xoapit.piratenews.Activities.MainActivity;
 import com.example.xoapit.piratenews.Adapter.ArticleAdapter;
 import com.example.xoapit.piratenews.Model.Article;
 import com.example.xoapit.piratenews.Others.RecyclerItemClickListener;
@@ -32,12 +36,23 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.HttpURLConnection;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.MalformedURLException;
+import java.net.Socket;
+import java.net.SocketAddress;
 import java.net.URL;
 import java.net.URLConnection;
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static java.security.AccessController.getContext;
 
 public class ArticleFragment extends Fragment {
     protected List<Article> mArticles;
@@ -45,6 +60,7 @@ public class ArticleFragment extends Fragment {
     protected ArticleAdapter mArticleAdapter;
     protected int mType;
     protected String mUrl;
+
 
     public ArticleFragment(String url, int type) {
         this.mType = type;
@@ -63,8 +79,8 @@ public class ArticleFragment extends Fragment {
                     new ReadData().execute(mUrl);
                 }
             });
-        } catch (Exception e) {
-            Toast.makeText(getContext(), "No Connection", Toast.LENGTH_LONG).show();
+        }catch (Exception e){
+            Toast.makeText(getContext(),"No Connection",Toast.LENGTH_LONG).show();
         }
     }
 
@@ -119,10 +135,10 @@ public class ArticleFragment extends Fragment {
                 String link = "";
                 String time = "";
 
-                int numberOfArticles = nodeList.getLength();
-                int numberOfHotNews = 5;
-                if (mType == 1) numberOfArticles = numberOfHotNews;
-                for (int i = 0; i < numberOfArticles; i++) {
+                int numberOfArticles= nodeList.getLength();
+                int numberOfHotNews=5;
+                if(mType==1) numberOfArticles=numberOfHotNews;
+                for(int i=0; i<numberOfArticles ;i++){
                     try {/*
                         String cdata = nodeListDescription.item(i+1).getTextContent();
                         Pattern p = Pattern.compile("<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>");
@@ -135,14 +151,14 @@ public class ArticleFragment extends Fragment {
                         title = parser.getValue(element, "title");
                         link = parser.getValue(element, "link");
                         time = parser.getValue(element, "pubDate");
-                        img = parser.getValue(element, "image");
+                        img=parser.getValue(element, "image");
                         mArticles.add(new Article(title, img, link, time));
-                    } catch (Exception e) {
+                    }catch (Exception e){
                         Toast.makeText(getActivity(), "Error when parse", Toast.LENGTH_SHORT).show();
                     }
                 }
                 writeArticlesOffline((ArrayList<Article>) mArticles);
-                if (mType != 1) {
+                  if(mType!=1) {
                     Collections.sort(mArticles, new Comparator() {
                         @Override
                         public int compare(Object o1, Object o2) {
@@ -155,8 +171,8 @@ public class ArticleFragment extends Fragment {
 
                 mArticleAdapter.notifyDataSetChanged();
                 super.onPostExecute(s);
-            } catch (Exception e) {
-                Toast.makeText(getContext(), "Not Connected", Toast.LENGTH_LONG).show();
+            }catch (Exception e){
+                Toast.makeText(getContext(),"Not Connected",Toast.LENGTH_LONG).show();
             }
             super.onPostExecute(s);
         }
@@ -212,9 +228,9 @@ public class ArticleFragment extends Fragment {
             oos.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch (IOException e) {
+        }catch (IOException e) {
             e.printStackTrace();
-        } catch (Exception e) {
+        }catch (Exception e){
             e.printStackTrace();
         }
     }
