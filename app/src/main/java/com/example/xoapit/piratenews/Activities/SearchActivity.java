@@ -67,7 +67,6 @@ public class SearchActivity extends AppCompatActivity {
                 text_search = text;
 
                 mArticles = new ArrayList<Article>();
-
                 new ReadData().execute("http://vietnamnet.vn/rss/thoi-su.rss");
                 new ReadData().execute("http://vietnamnet.vn/rss/the-gioi.rss");
                 new ReadData().execute("http://vietnamnet.vn/rss/giai-tri.rss");
