@@ -74,6 +74,7 @@ public class SearchActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_search, menu);
         MenuItem itemSearch = menu.findItem(R.id.btnSearchScreen);
         searchView = (SearchView) itemSearch.getActionView();
+
         searchView.setIconifiedByDefault(true);
         searchView.setFocusable(true);
         searchView.setIconified(false);
@@ -83,7 +84,6 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String text) {
                 text_search = text;
-
                 mArticles = new ArrayList<Article>();
                 new ReadData().execute("http://vietnamnet.vn/rss/thoi-su.rss");
                 new ReadData().execute("http://vietnamnet.vn/rss/the-gioi.rss");
@@ -189,7 +189,7 @@ public class SearchActivity extends AppCompatActivity {
         }
         return content.toString();
     }
-
+  
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){

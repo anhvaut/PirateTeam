@@ -31,5 +31,6 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'org.jsoup:jsoup:1.10.2'
     compile 'com.felipecsl:gifimageview:2.1.0'
+    compile 'com.android.support.constraint:constraint-layout:+'
     testCompile 'junit:junit:4.12'
 }
