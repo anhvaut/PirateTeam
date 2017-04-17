@@ -9,12 +9,22 @@ public class Article {
     private String img;
     private String link;
     private String time;
+    private String substance;
 
-    public Article(String title, String img, String link, String time) {
+    public Article(String title, String substance, String img, String link, String time) {
         this.title = title;
+        this.substance = substance;
         this.img = img;
         this.link = link;
         this.time = time;
+    }
+
+    public String getSubstance() {
+        return substance;
+    }
+
+    public void setSubstance(String substance) {
+        this.substance = substance;
     }
 
     public String getTitle() {

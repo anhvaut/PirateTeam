@@ -8,11 +8,12 @@
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabs"
+        app:tabTextAppearance="@style/Widget.AppCompat.ActionBar.TabText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
         android:background="@color/colorBelizeHole"
-        android:elevation="6dp"
+        android:elevation="16dp"
         android:minHeight="@dimen/activity_vertical_margin"
         app:tabTextColor="@color/colorMidnightBlue"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
