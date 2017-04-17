@@ -22,40 +22,29 @@ import android.widget.TabHost;
 
 import com.example.xoapit.piratenews.R;
 
+import java.util.HashMap;
+
 public class CategoryFragment extends Fragment {
-    public String url = "";
-    public String[] tabTitles = new String[]{"Tất cả", "Nổi bật"};
+    private String url = "";
+    private String[] tabTitles = new String[]{"Tất cả", "Nổi bật"};
+    private HashMap<String, String> hashMapUrlList;
 
     public CategoryFragment(String category) {
-        switch (category) {
-            case "trangchu":
-                url = "http://vietnamnet.vn/rss/home.rss";
-                break;
-            case "thoisu":
-                url = "http://vietnamnet.vn/rss/thoi-su.rss";
-                break;
-            case "thegioi":
-                url = "http://vietnamnet.vn/rss/the-gioi.rss";
-                break;
-            case "giaitri":
-                url = "http://vietnamnet.vn/rss/giai-tri.rss";
-                break;
-            case "phapluat":
-                url = "http://vietnamnet.vn/rss/phap-luat.rss";
-                break;
-            case "thethao":
-                url = "http://vietnamnet.vn/rss/the-thao.rss";
-                break;
-            case "giaoduc":
-                url = "http://vietnamnet.vn/rss/giao-duc.rss";
-                break;
-            case "suckhoe":
-                url = "http://vietnamnet.vn/rss/suc-khoe.rss";
-                break;
-            case "tamsu":
-                url = "http://vietnamnet.vn/rss/ban-doc.rss";
-                break;
-        }
+        initHashMapUrlList();
+        url = hashMapUrlList.get(category);
+    }
+
+    private void initHashMapUrlList() {
+        hashMapUrlList = new HashMap<>();
+        hashMapUrlList.put("trangchu", "http://vietnamnet.vn/rss/home.rss");
+        hashMapUrlList.put("thoisu", "http://vietnamnet.vn/rss/thoi-su.rss");
+        hashMapUrlList.put("thegioi", "http://vietnamnet.vn/rss/the-gioi.rss");
+        hashMapUrlList.put("giaitri", "http://vietnamnet.vn/rss/giai-tri.rss");
+        hashMapUrlList.put("phapluat", "http://vietnamnet.vn/rss/phap-luat.rss");
+        hashMapUrlList.put("thethao", "http://vietnamnet.vn/rss/the-thao.rss");
+        hashMapUrlList.put("giaoduc", "http://vietnamnet.vn/rss/giao-duc.rss");
+        hashMapUrlList.put("suckhoe", "http://vietnamnet.vn/rss/suc-khoe.rss");
+        hashMapUrlList.put("bandoc", "http://vietnamnet.vn/rss/ban-doc.rss");
     }
 
     @Override
@@ -65,19 +54,16 @@ public class CategoryFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
         View view = inflater.inflate(R.layout.fragment_category, container, false);
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabs);
-        // tabLayout.addTab(tabLayout.newTab().setText("Tất cả"));
-        //tabLayout.addTab(tabLayout.newTab().setText("Nổi bật"));
+
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         final ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewPager);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         viewPager.setAdapter(new PagerAdapter(getFragmentManager(), tabLayout.getTabCount()));
         tabLayout.setupWithViewPager(viewPager);
-        //tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {

@@ -39,6 +39,13 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import java.util.Vector;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static com.example.xoapit.piratenews.Activities.SettingActivity.readFromFile;
+import static java.security.AccessController.getContext;
+
 public class ArticleFragment extends Fragment {
     protected List<Article> mArticles;
     protected RecyclerView mRecyclerView;
@@ -54,6 +61,7 @@ public class ArticleFragment extends Fragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         try {
             getActivity().runOnUiThread(new Runnable() {
@@ -76,10 +84,16 @@ public class ArticleFragment extends Fragment {
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewMain);
         mRecyclerView.setHasFixedSize(true);
 
-        if (mType == 0) mArticleAdapter = new ArticleAdapter(mArticles, getContext(), 0);
-        else if (mType == 1) mArticleAdapter = new ArticleAdapter(mArticles, getContext(), 1);
-        else mArticleAdapter = new ArticleAdapter(mArticles, getContext(), 2);
-
+        int typeBoldNormalHotNews = 0;
+        int typeHotNews = 1;
+        int typeNormalNews = 2;
+        if (mType == typeBoldNormalHotNews) {
+            mArticleAdapter = new ArticleAdapter(mArticles, getContext(), typeBoldNormalHotNews);
+        } else if (mType == typeHotNews) {
+            mArticleAdapter = new ArticleAdapter(mArticles, getContext(), typeHotNews);
+        } else {
+            mArticleAdapter = new ArticleAdapter(mArticles, getContext(), typeNormalNews);
+        }
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
 
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -112,36 +126,42 @@ public class ArticleFragment extends Fragment {
                 XmlParser parser = new XmlParser();
                 Document document = parser.getDocument(s);
                 NodeList nodeList = document.getElementsByTagName("item");
-                //NodeList nodeListDescription = document.getElementsByTagName("description");
+                NodeList nodeListDescription = document.getElementsByTagName("description");
 
                 String img = "";
                 String title = "";
                 String link = "";
                 String time = "";
 
+                String substance = "";
                 int numberOfArticles = nodeList.getLength();
                 int numberOfHotNews = 5;
                 if (mType == 1) numberOfArticles = numberOfHotNews;
+                ArrayList<String> titleArticles= new ArrayList<>();
                 for (int i = 0; i < numberOfArticles; i++) {
-                    try {/*
-                        String cdata = nodeListDescription.item(i+1).getTextContent();
-                        Pattern p = Pattern.compile("<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>");
-                        Matcher matcher = p.matcher(cdata);
-                        if (matcher.find()) {
-                            img = matcher.group(1);
-                        }*/
-
+                    try {
                         Element element = (Element) nodeList.item(i);
                         title = parser.getValue(element, "title");
                         link = parser.getValue(element, "link");
                         time = parser.getValue(element, "pubDate");
                         img = parser.getValue(element, "image");
-                        mArticles.add(new Article(title, img, link, time));
+
+                        Element elementDescription = (Element) nodeListDescription.item(i + 1);
+                        String description = elementDescription.getTextContent();
+                        substance = description.substring(0, description.indexOf("br /") - 1);
+                        substance = substance.replaceAll("&amp;nbsp;", " ");
+                        substance = substance.replaceAll("&#160;", " ");
+
+                        if(!titleArticles.contains(title)){
+                            titleArticles.add(title);
+                            mArticles.add(new Article(title, substance, img, link, time));
+                        }
                     } catch (Exception e) {
                         Toast.makeText(getActivity(), "Error when parse", Toast.LENGTH_SHORT).show();
                     }
                 }
-                writeArticlesOffline((ArrayList<Article>) mArticles);
+              
+                //writeArticlesOffline((ArrayList<Article>) mArticles);
                 if (mType != 1) {
                     Collections.sort(mArticles, new Comparator() {
                         @Override
@@ -162,7 +182,7 @@ public class ArticleFragment extends Fragment {
         }
     }
 
-    private String readDataFromUrl(String theUrl) {
+    public static String readDataFromUrl(String theUrl) {
         StringBuilder content = new StringBuilder();
 
         try {

@@ -37,8 +37,8 @@
         android:title="@string/title_suc_khoe" />
     <item
         android:icon="@drawable/chat"
-        android:id="@+id/nav_item_tam_su"
-        android:title="@string/title_tam_su" />
+        android:id="@+id/nav_item_ban_doc"
+        android:title="@string/title_ban_doc" />
 
     <item android:title="Others">
         <menu>
