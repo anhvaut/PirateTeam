@@ -2,50 +2,50 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/nav_item_trang_chu"
-        android:icon="@drawable/home"
-        android:title="@string/title_trang_chu" />
+        android:icon="@drawable/ic_home"
+        android:title="@string/menu.title.trang_chu" />
     <item
-        android:icon="@drawable/news2"
+        android:icon="@drawable/ic_news"
         android:id="@+id/nav_item_thoi_su"
-        android:title="@string/title_thoi_su" />
+        android:title="@string/menu.title.thoi_su" />
 
     <item
-        android:icon="@drawable/world1"
+        android:icon="@drawable/ic_world"
         android:id="@+id/nav_item_the_gioi"
-        android:title="@string/title_the_gioi" />
+        android:title="@string/menu.title.the_gioi" />
 
     <item
-        android:icon="@drawable/movie"
+        android:icon="@drawable/ic_movie"
         android:id="@+id/nav_item_giai_tri"
-        android:title="@string/title_giai_tri" />
+        android:title="@string/menu.title.giai_tri" />
 
     <item
-        android:icon="@drawable/law"
+        android:icon="@drawable/ic_law"
         android:id="@+id/nav_item_phap_luat"
-        android:title="@string/title_phap_luat" />
+        android:title="@string/menu.title.phap_luat" />
     <item
-        android:icon="@drawable/sport"
+        android:icon="@drawable/ic_sport"
         android:id="@+id/nav_item_the_thao"
-        android:title="@string/title_the_thao" />
+        android:title="@string/menu.title.the_thao" />
     <item
-        android:icon="@drawable/education"
+        android:icon="@drawable/ic_education"
         android:id="@+id/nav_item_giao_duc"
-        android:title="@string/title_giao_duc" />
+        android:title="@string/menu.title.giao_duc" />
     <item
-        android:icon="@drawable/health"
+        android:icon="@drawable/ic_health"
         android:id="@+id/nav_item_suc_khoe"
-        android:title="@string/title_suc_khoe" />
+        android:title="@string/menu.title.suc_khoe" />
     <item
-        android:icon="@drawable/chat"
+        android:icon="@drawable/ic_bandoc"
         android:id="@+id/nav_item_ban_doc"
-        android:title="@string/title_ban_doc" />
+        android:title="@string/menu.title.ban_doc" />
 
     <item android:title="Others">
         <menu>
             <item
-                android:icon="@drawable/setting"
+                android:icon="@drawable/ic_setting"
                 android:id="@+id/nav_item_setting"
-                android:title="Setting" />
+                android:title="@string/menu.title.setting" />
         </menu>
     </item>
 </menu>

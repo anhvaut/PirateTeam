@@ -1,8 +1,10 @@
 package com.example.xoapit.piratenews.Activities;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
@@ -21,11 +23,7 @@ import com.example.xoapit.piratenews.Fragments.ArticleFragment;
 import com.example.xoapit.piratenews.Fragments.CategoryFragment;
 import com.example.xoapit.piratenews.R;
 
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.example.xoapit.piratenews.Activities.SettingActivity.readFromFile;
+import static com.example.xoapit.piratenews.Activities.SettingActivity.readSettingFromFile;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,103 +34,98 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        try {
-            String settingInfo = readFromFile(getBaseContext());
-            String arrSetting[] = settingInfo.split("-");
-            String themeSetting=arrSetting[2];
-            if (themeSetting.equals("dark")) {
-                setTheme(R.style.DarkTheme);
-            }else{
-                setTheme(R.style.LightTheme);
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        checkAndSetSetting();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //apply new toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mNavigationView = (NavigationView) findViewById(R.id.navigationView);
 
         LinearLayout layout = (LinearLayout) findViewById(R.id.llActivityMain);
-        AlphaAnimation animation = new AlphaAnimation(0.0f , 1.0f ) ;
+        AlphaAnimation animation = new AlphaAnimation(0.0f, 1.0f);
         animation.setFillAfter(true);
-        animation.setDuration(1000);
-        //apply the animation ( fade In ) to your LAyout
+        animation.setDuration(800);
+        //apply the animation ( fade In ) to your Layout
         layout.startAnimation(animation);
 
-        //dua fragment vao frame
+        int typeBothNormalAndHotNews = 0;
         mFragmentManager = getSupportFragmentManager();
-        mFragmentTransaction = mFragmentManager.beginTransaction();
-        mFragmentTransaction.replace(R.id.content_frame,new ArticleFragment("http://vietnamnet.vn/rss/home.rss",0)).commit();
-        getSupportActionBar().setTitle(Html.fromHtml("<b>Trang Chủ</b>"));
+        Fragment fragment = new ArticleFragment("http://vietnamnet.vn/rss/home.rss", typeBothNormalAndHotNews);
+        switchFragment(fragment);
+        setTitleMenuWithCategory("trangchu");
+
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 mDrawerLayout.closeDrawers();
-                switch (menuItem.getItemId()){
+                String articleCategory = null;
+                switch (menuItem.getItemId()) {
                     case R.id.nav_item_trang_chu: {
-                        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-                        fragmentTransaction.replace(R.id.content_frame, new ArticleFragment("http://vietnamnet.vn/rss/home.rss",0)).commit();
-                        getSupportActionBar().setTitle(Html.fromHtml("<b>Trang Chủ</b>"));
+                        articleCategory = "trangchu";
+                        int typeBothNormalAndHotNews = 0;
+                        Fragment fragment = new ArticleFragment("http://vietnamnet.vn/rss/home.rss", typeBothNormalAndHotNews);
+                        switchFragment(fragment);
                         break;
                     }
                     case R.id.nav_item_thoi_su: {
-                        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-                        fragmentTransaction.replace(R.id.content_frame, new CategoryFragment("thoisu")).commit();
-                        getSupportActionBar().setTitle(Html.fromHtml("<b>Thời Sự</b>"));
+                        articleCategory = "thoisu";
+                        Fragment fragment = new CategoryFragment(articleCategory);
+                        switchFragment(fragment);
                         break;
                     }
                     case R.id.nav_item_the_gioi: {
-                        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-                        fragmentTransaction.replace(R.id.content_frame, new CategoryFragment("thegioi")).commit();
-                        getSupportActionBar().setTitle(Html.fromHtml("<b>Thế Giới</b>"));
+                        articleCategory = "thegioi";
+                        Fragment fragment = new CategoryFragment(articleCategory);
+                        switchFragment(fragment);
                         break;
                     }
                     case R.id.nav_item_giai_tri: {
-                        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-                        fragmentTransaction.replace(R.id.content_frame, new CategoryFragment("giaitri")).commit();
-                        getSupportActionBar().setTitle(Html.fromHtml("<b>Giải Trí</b>"));
+                        articleCategory = "giaitri";
+                        Fragment fragment = new CategoryFragment(articleCategory);
+                        switchFragment(fragment);
                         break;
                     }
                     case R.id.nav_item_phap_luat: {
-                        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-                        fragmentTransaction.replace(R.id.content_frame, new CategoryFragment("phapluat")).commit();
-                        getSupportActionBar().setTitle(Html.fromHtml("<b>Pháp Luật</b>"));
+                        articleCategory = "phapluat";
+                        Fragment fragment = new CategoryFragment(articleCategory);
+                        switchFragment(fragment);
                         break;
                     }
                     case R.id.nav_item_the_thao: {
-                        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-                        fragmentTransaction.replace(R.id.content_frame, new CategoryFragment("thethao")).commit();
-                        getSupportActionBar().setTitle(Html.fromHtml("<b>Thể Thao</b>"));
+                        articleCategory = "thethao";
+                        Fragment fragment = new CategoryFragment(articleCategory);
+                        switchFragment(fragment);
                         break;
                     }
                     case R.id.nav_item_giao_duc: {
-                        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-                        fragmentTransaction.replace(R.id.content_frame, new CategoryFragment("giaoduc")).commit();
-                        getSupportActionBar().setTitle(Html.fromHtml("<b>Giáo Dục</b>"));
+                        articleCategory = "giaoduc";
+                        Fragment fragment = new CategoryFragment(articleCategory);
+                        switchFragment(fragment);
                         break;
                     }
                     case R.id.nav_item_suc_khoe: {
-                        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-                        fragmentTransaction.replace(R.id.content_frame, new CategoryFragment("suckhoe")).commit();
-                        getSupportActionBar().setTitle(Html.fromHtml("<b>Sức Khỏe</b>"));
+                        articleCategory = "suckhoe";
+                        Fragment fragment = new CategoryFragment(articleCategory);
+                        switchFragment(fragment);
                         break;
                     }
                     case R.id.nav_item_ban_doc: {
-                        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-                        fragmentTransaction.replace(R.id.content_frame, new CategoryFragment("bandoc")).commit();
-                        getSupportActionBar().setTitle(Html.fromHtml("<b>Bạn Đọc</b>"));
+                        articleCategory = "bandoc";
+                        Fragment fragment = new CategoryFragment(articleCategory);
+                        switchFragment(fragment);
                         break;
                     }
                     case R.id.nav_item_setting: {
-                        Intent intent= new Intent(MainActivity.this, SettingActivity.class);
+                        Intent intent = new Intent(MainActivity.this, SettingActivity.class);
                         startActivity(intent);
                         break;
                     }
+                }
+
+                if (articleCategory != null) {
+                    setTitleMenuWithCategory(articleCategory);
                 }
                 return false;
             }
@@ -152,13 +145,65 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.btnSearch: {
-                Intent intent = new Intent(MainActivity.this,SearchActivity.class);
+                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
                 startActivity(intent);
                 break;
             }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+    }
+
+    private void switchFragment(Fragment fragment) {
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.content_frame, fragment).commit();
+    }
+
+    private void checkAndSetSetting() {
+        try {
+            //read setting from setting file on local
+            String settingInfo = readSettingFromFile(getBaseContext());
+            String arrSetting[] = settingInfo.split("-");
+            String themeSetting = arrSetting[2];
+            if (themeSetting.equals("dark")) {
+                setTheme(R.style.DarkTheme);
+            } else {
+                setTheme(R.style.LightTheme);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void setTitleMenuWithCategory(String category) {
+        if (category == "trangchu") {
+            category = "Trang Chủ";
+        } else if (category == "thoisu") {
+            category = "Thời Sự";
+        } else if (category == "thegioi") {
+            category = "Thế Giới";
+        } else if (category == "giaitri") {
+            category = "Giải Trí";
+        } else if (category == "phapluat") {
+            category = "Pháp Luật";
+        } else if (category == "thethao") {
+            category = "Thể Thao";
+        } else if (category == "giaoduc") {
+            category = "Giáo Dục";
+            ;
+        } else if (category == "suckhoe") {
+            category = "Sức Khỏe";
+        } else if (category == "bandoc") {
+            category = "Bạn Đọc";
+        } else {
+            category = "PirateNews";
+        }
+        getSupportActionBar().setTitle(Html.fromHtml("<b>" + category + "</b>"));
     }
 }

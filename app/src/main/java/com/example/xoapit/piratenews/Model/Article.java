@@ -1,10 +1,12 @@
 package com.example.xoapit.piratenews.Model;
 
+import java.io.Serializable;
+
 /**
  * Created by Xoapit on 3/30/2017.
  */
 
-public class Article {
+public class Article implements Serializable{
     private String title;
     private String img;
     private String link;

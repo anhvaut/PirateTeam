@@ -13,6 +13,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,26 +26,27 @@ import com.example.xoapit.piratenews.R;
 import java.util.HashMap;
 
 public class CategoryFragment extends Fragment {
-    private String url = "";
-    private String[] tabTitles = new String[]{"Tất cả", "Nổi bật"};
-    private HashMap<String, String> hashMapUrlList;
+    private String mUrl = "";
+    private String[] mTabTitles;
+    private HashMap<String, String> mHashMapUrlList;
 
     public CategoryFragment(String category) {
-        initHashMapUrlList();
-        url = hashMapUrlList.get(category);
+        initmHashMapUrlList();
+        mUrl = mHashMapUrlList.get(category);
+        mTabTitles = new String[]{"Tất cả", "Nổi bật"};
     }
 
-    private void initHashMapUrlList() {
-        hashMapUrlList = new HashMap<>();
-        hashMapUrlList.put("trangchu", "http://vietnamnet.vn/rss/home.rss");
-        hashMapUrlList.put("thoisu", "http://vietnamnet.vn/rss/thoi-su.rss");
-        hashMapUrlList.put("thegioi", "http://vietnamnet.vn/rss/the-gioi.rss");
-        hashMapUrlList.put("giaitri", "http://vietnamnet.vn/rss/giai-tri.rss");
-        hashMapUrlList.put("phapluat", "http://vietnamnet.vn/rss/phap-luat.rss");
-        hashMapUrlList.put("thethao", "http://vietnamnet.vn/rss/the-thao.rss");
-        hashMapUrlList.put("giaoduc", "http://vietnamnet.vn/rss/giao-duc.rss");
-        hashMapUrlList.put("suckhoe", "http://vietnamnet.vn/rss/suc-khoe.rss");
-        hashMapUrlList.put("bandoc", "http://vietnamnet.vn/rss/ban-doc.rss");
+    private void initmHashMapUrlList() {
+        mHashMapUrlList = new HashMap<>();
+        mHashMapUrlList.put("trangchu", "http://vietnamnet.vn/rss/home.rss");
+        mHashMapUrlList.put("thoisu", "http://vietnamnet.vn/rss/thoi-su.rss");
+        mHashMapUrlList.put("thegioi", "http://vietnamnet.vn/rss/the-gioi.rss");
+        mHashMapUrlList.put("giaitri", "http://vietnamnet.vn/rss/giai-tri.rss");
+        mHashMapUrlList.put("phapluat", "http://vietnamnet.vn/rss/phap-luat.rss");
+        mHashMapUrlList.put("thethao", "http://vietnamnet.vn/rss/the-thao.rss");
+        mHashMapUrlList.put("giaoduc", "http://vietnamnet.vn/rss/giao-duc.rss");
+        mHashMapUrlList.put("suckhoe", "http://vietnamnet.vn/rss/suc-khoe.rss");
+        mHashMapUrlList.put("bandoc", "http://vietnamnet.vn/rss/ban-doc.rss");
     }
 
     @Override
@@ -55,12 +57,14 @@ public class CategoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_category, container, false);
-        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabs);
 
+        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabs);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
         final ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewPager);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+
         viewPager.setAdapter(new PagerAdapter(getFragmentManager(), tabLayout.getTabCount()));
         tabLayout.setupWithViewPager(viewPager);
 
@@ -94,16 +98,18 @@ public class CategoryFragment extends Fragment {
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return tabTitles[position];
+            return mTabTitles[position];
         }
 
         @Override
         public Fragment getItem(int position) {
+            int typeHotNews = 1;
+            int typeNormalNews = 2;
             switch (position) {
                 case 0:
-                    return new ArticleFragment(url, 2);
+                    return new ArticleFragment(mUrl, typeNormalNews);
                 case 1:
-                    return new ArticleFragment(url, 1);
+                    return new ArticleFragment(mUrl, typeHotNews);
                 default:
                     return null;
             }
@@ -111,7 +117,7 @@ public class CategoryFragment extends Fragment {
 
         @Override
         public int getCount() {
-            return tabTitles.length;
+            return mTabTitles.length;
         }
     }
 }

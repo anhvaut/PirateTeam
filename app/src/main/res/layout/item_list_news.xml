@@ -28,13 +28,17 @@
                 android:id="@+id/tvItemTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/activity_vertical_margin_small"
-                android:text="Title"
+                android:layout_marginTop="@dimen/activity_vertical_margin_small"
+                android:layout_marginLeft="@dimen/activity_vertical_margin_small"
+                android:layout_marginRight="@dimen/activity_vertical_margin_small"
+                android:text="@string/textview.text.item_list_title"
                 android:textColor="@color/colorBelizeHole"
                 android:textSize="@dimen/text_size_medium"
                 android:textStyle="normal" />
             <TextView
                 android:id="@+id/tvItemSubstance"
+                android:layout_marginLeft="@dimen/activity_vertical_margin_small"
+                android:layout_marginRight="@dimen/activity_vertical_margin_small"
                 android:layout_below="@id/tvItemTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -44,10 +48,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_below="@id/tvItemTitle"
+                android:layout_below="@id/tvItemSubstance"
                 android:gravity="end|bottom"
-                android:layout_margin="@dimen/activity_vertical_margin_small"
-                android:text="Date Time"
+                android:layout_marginLeft="@dimen/activity_vertical_margin_small"
+                android:layout_marginRight="@dimen/activity_vertical_margin_small"
+                android:layout_marginBottom="@dimen/activity_vertical_margin_small"
+                android:text="@string/textview.text.item_list_date"
                 android:textSize="@dimen/text_size_small" />
 
         </RelativeLayout>

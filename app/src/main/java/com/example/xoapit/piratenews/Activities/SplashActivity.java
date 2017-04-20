@@ -11,14 +11,15 @@ import com.example.xoapit.piratenews.R;
 import com.felipecsl.gifimageview.library.GifImageView;
 
 public class SplashActivity extends AppCompatActivity {
-    private ProgressBar progressBar;
+    private ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        progressBar=(ProgressBar)findViewById(R.id.progressBar);
-        progressBar.setVisibility(View.VISIBLE);
+        int timeDuration=2000;
+        mProgressBar=(ProgressBar)findViewById(R.id.progressBar);
+        mProgressBar.setVisibility(View.VISIBLE);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -26,6 +27,6 @@ public class SplashActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-        },2000);
+        },timeDuration);
     }
 }

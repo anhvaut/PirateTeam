@@ -4,7 +4,7 @@
     android:id="@+id/activity_splash"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splash_piratenews"
+    android:background="@drawable/bg_splash_piratenews"
     tools:context="com.example.xoapit.piratenews.Activities.SplashActivity">
 
     <ProgressBar
@@ -22,7 +22,7 @@
         android:background="@color/colorMidnightBlue"
         android:gravity="center"
         android:padding="@dimen/activity_vertical_margin_small"
-        android:text="@string/copyright"
+        android:text="@string/textview.text.copyright"
         android:textColor="@color/colorWhite"
         android:textSize="@dimen/text_size_small"
         android:textStyle="bold" />

@@ -30,39 +30,26 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.xoapit.piratenews.Activities.SettingActivity.readFromFile;
+import static com.example.xoapit.piratenews.Activities.SettingActivity.readSettingFromFile;
+import static com.example.xoapit.piratenews.Fragments.ArticleFragment.readDataFromUrl;
 
 public class SearchActivity extends AppCompatActivity {
 
-    private String text_search = "";
+    private String mTextSearch = "";
     private List<Article> mArticles;
-    private SearchView searchView;
+    private SearchView mSearchView;
     private ArticleAdapter mArticleAdapter;
-    private int mTypeNormalNews=2;
+    private int mTypeNormalNews = 2;
     private RecyclerView mRecyclerView;
     private ArrayList<String> mTitleArticles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        try {
-            String settingInfo = readFromFile(getBaseContext());
-            String arrSetting[] = settingInfo.split("-");
-            String themeSetting=arrSetting[2];
-            if (themeSetting.equals("dark")) {
-                setTheme(R.style.DarkTheme);
-            }else{
-                setTheme(R.style.LightTheme);
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        checkAndSetSetting();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        initToolbar();
         SearchActivity.this.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarSearch);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewSearch);
         mRecyclerView.setHasFixedSize(true);
@@ -73,17 +60,17 @@ public class SearchActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_search, menu);
         MenuItem itemSearch = menu.findItem(R.id.btnSearchScreen);
-        searchView = (SearchView) itemSearch.getActionView();
 
-        searchView.setIconifiedByDefault(true);
-        searchView.setFocusable(true);
-        searchView.setIconified(false);
-        searchView.requestFocusFromTouch();
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        mSearchView = (SearchView) itemSearch.getActionView();
+        mSearchView.setIconifiedByDefault(true);
+        mSearchView.setFocusable(true);
+        mSearchView.setIconified(false);
+        mSearchView.requestFocusFromTouch();
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
             @Override
             public boolean onQueryTextSubmit(String text) {
-                text_search = text;
+                mTextSearch = text;
                 mArticles = new ArrayList<Article>();
                 new ReadData().execute("http://vietnamnet.vn/rss/thoi-su.rss");
                 new ReadData().execute("http://vietnamnet.vn/rss/the-gioi.rss");
@@ -94,7 +81,7 @@ public class SearchActivity extends AppCompatActivity {
                 new ReadData().execute("http://vietnamnet.vn/rss/suc-khoe.rss");
                 new ReadData().execute("http://vietnamnet.vn/rss/ban-doc.rss");
 
-                mArticleAdapter = new ArticleAdapter(mArticles, getApplicationContext(),mTypeNormalNews);
+                mArticleAdapter = new ArticleAdapter(mArticles, getApplicationContext(), mTypeNormalNews);
                 RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
                 mRecyclerView.setLayoutManager(mLayoutManager);
                 mRecyclerView.setAdapter(mArticleAdapter);
@@ -105,6 +92,8 @@ public class SearchActivity extends AppCompatActivity {
                             public void onItemClick(View view, int position) {
                                 Intent intent = new Intent(SearchActivity.this, ContentActivity.class);
                                 intent.putExtra("URL", mArticles.get(position).getLink());
+                                intent.putExtra("IMG", mArticles.get(position).getImg());
+                                intent.putExtra("TITLE", mArticles.get(position).getTitle());
                                 startActivityForResult(intent, 1);
                             }
                         })
@@ -134,23 +123,18 @@ public class SearchActivity extends AppCompatActivity {
             try {
                 XmlParser parser = new XmlParser();
                 Document document = parser.getDocument(s);
-                NodeList nodeList = document.getElementsByTagName("item");
+                NodeList nodeListItem = document.getElementsByTagName("item");
 
-                String img = "";
-                String title = "";
-                String link = "";
-                String time = "";
-
-                int numberOfArticles = nodeList.getLength();
+                int numberOfArticles = nodeListItem.getLength();
                 for (int i = 0; i < numberOfArticles; i++) {
                     try {
-                        Element element = (Element) nodeList.item(i);
-                        title = parser.getValue(element, "title");
-                        link = parser.getValue(element, "link");
-                        time = parser.getValue(element, "pubDate");
-                        img = parser.getValue(element, "image");
-                        if (title.indexOf(text_search) != -1) {
-                            if(!mTitleArticles.contains(title)){
+                        Element element = (Element) nodeListItem.item(i);
+                        String title = parser.getValue(element, "title");
+                        String link = parser.getValue(element, "link");
+                        String time = parser.getValue(element, "pubDate");
+                        String img = parser.getValue(element, "image");
+                        if (title.indexOf(mTextSearch) != -1) {
+                            if (!mTitleArticles.contains(title)) {
                                 mTitleArticles.add(title);
                                 mArticles.add(new Article(title, "", img, link, time));
                             }
@@ -168,36 +152,35 @@ public class SearchActivity extends AppCompatActivity {
         }
     }
 
-    private String readDataFromUrl(String theUrl) {
-        StringBuilder content = new StringBuilder();
-
-        try {
-            // create a url object
-            URL url = new URL(theUrl);
-            // create a urlconnection object
-            URLConnection urlConnection = url.openConnection();
-            // wrap the urlconnection in a bufferedreader
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-            String line;
-            // read from the urlconnection via the bufferedreader
-            while ((line = bufferedReader.readLine()) != null) {
-                content.append(line + "\n");
-            }
-            bufferedReader.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return content.toString();
-    }
-  
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case android.R.id.home:{
+        switch (item.getItemId()) {
+            case android.R.id.home: {
                 finish();
                 break;
             }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void checkAndSetSetting(){
+        try {
+            String settingInfo = readSettingFromFile(getBaseContext());
+            String arrSetting[] = settingInfo.split("-");
+            String themeSetting = arrSetting[2];
+            if (themeSetting.equals("dark")) {
+                setTheme(R.style.DarkTheme);
+            } else {
+                setTheme(R.style.LightTheme);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void initToolbar(){
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarSearch);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 }

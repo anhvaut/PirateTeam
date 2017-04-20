@@ -1,7 +1,9 @@
 package com.example.xoapit.piratenews.Adapter;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -83,6 +85,18 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.MyViewHo
             holder.mTvSubtance.setText(article.getSubstance());
         } else if (((mType == 0) && (position == 0))) {
             holder.mTvSubtance.setText(article.getSubstance());
+        } else {
+            Configuration configuration = mContext.getResources().getConfiguration();
+            if (configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                holder.mTvSubtance.setText(article.getSubstance());
+            } else if ((mContext.getResources().getConfiguration().screenLayout &
+                    Configuration.SCREENLAYOUT_SIZE_MASK) >=
+                    Configuration.SCREENLAYOUT_SIZE_LARGE) {
+                //situation large screen devices such us tablet
+                holder.mTvSubtance.setText(article.getSubstance());
+            } else {
+                holder.mTvSubtance.setText("");
+            }
         }
 
         holder.mTvTime.setText(getDateFromTime(article.getTime()));

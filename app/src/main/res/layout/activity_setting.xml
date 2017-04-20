@@ -15,149 +15,155 @@
         android:background="@color/colorPrimary"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:titleTextAppearance="@style/Widget.AppCompat.Light.ActionBar.TabBar"
-        app:title="@string/title_setting" />
+        app:title="@string/menu.title.setting" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="@dimen/activity_horizontal_margin">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:text="@string/title_size_text"
-            android:textSize="@dimen/text_size_medium"
-            android:textStyle="bold" />
-
-        <SeekBar
-            android:id="@+id/seekBarSize"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin" />
-    </LinearLayout>
+            android:orientation="horizontal"
+            android:padding="@dimen/activity_horizontal_margin">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="@dimen/activity_horizontal_margin">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:text="@string/title_font_text"
-            android:textSize="@dimen/text_size_medium"
-            android:textStyle="bold" />
-
-        <Spinner
-            android:id="@+id/spinerFont"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"></Spinner>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="@dimen/activity_horizontal_margin">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:text="@string/title_background"
-            android:textSize="@dimen/text_size_medium"
-            android:textStyle="bold" />
-
-        <RadioGroup
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/rbLight"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:text="@string/background_light" />
+                android:text="@string/textview.text.size_text"
+                android:textSize="@dimen/text_size_medium"
+                android:textStyle="bold" />
 
-            <RadioButton
-                android:id="@+id/rbDark"
+            <SeekBar
+                android:id="@+id/seekBarSize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/activity_horizontal_margin">
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:text="@string/background_dark" />
-        </RadioGroup>
-    </LinearLayout>
+                android:text="@string/textview.text.font_text"
+                android:textSize="@dimen/text_size_medium"
+                android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/btnOk"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:layout_marginRight="@dimen/activity_vertical_margin"
-        android:background="@color/colorAccent"
-        android:text="@string/btn_name_ok"
-        android:textColor="@android:color/white" />
+            <Spinner
+                android:id="@+id/spinerFont"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"></Spinner>
+        </LinearLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorBelizeHole"
-        android:padding="@dimen/activity_vertical_margin_small"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:text="@string/title_about"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/text_size_large"
-        android:textStyle="bold" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/imgLogo"
-            android:layout_width="72dp"
-            android:layout_height="72dp"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="@dimen/activity_horizontal_margin"
-            android:background="@drawable/logo2" />
-
-        <TextView
-            android:id="@+id/tvAppNameAbout"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/text_size_large"
-            android:layout_toRightOf="@+id/imgLogo"
-            android:gravity="center"
-            android:paddingTop="@dimen/activity_horizontal_margin"
-            android:text="@string/app_name"
-            android:textColor="@color/colorAlizarin"
+            android:orientation="horizontal"
+            android:padding="@dimen/activity_horizontal_margin">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:text="@string/textview.text.background"
+                android:textSize="@dimen/text_size_medium"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rbLight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:text="@string/radiobutton.text.background_light" />
+
+                <RadioButton
+                    android:id="@+id/rbDark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:text="@string/radiobutton.text.background_dark" />
+            </RadioGroup>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnOk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:background="@color/colorAccent"
+            android:text="@string/button.title.ok"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorBelizeHole"
+            android:padding="@dimen/activity_vertical_margin_small"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:text="@string/textview.text.about"
+            android:textColor="@android:color/white"
             android:textSize="@dimen/text_size_large"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tvCopyright"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/imgLogo"
-            android:layout_marginTop="@dimen/activity_vertical_margin_small"
-            android:gravity="center"
-            android:text="@string/copyright" />
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tvMemberOfTeam"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvCopyright"
-            android:layout_marginTop="@dimen/activity_vertical_margin_small"
-            android:gravity="center"
-            android:text="@string/member_of_team" />
+            <ImageView
+                android:id="@+id/imgLogo"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:background="@drawable/ic_logo" />
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/tvAppNameAbout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/text_size_large"
+                android:layout_toRightOf="@+id/imgLogo"
+                android:gravity="center"
+                android:paddingTop="@dimen/activity_horizontal_margin"
+                android:text="@string/app_name"
+                android:textColor="@color/colorAlizarin"
+                android:textSize="@dimen/text_size_large"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvCopyright"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imgLogo"
+                android:layout_marginTop="@dimen/activity_vertical_margin_small"
+                android:gravity="center"
+                android:text="@string/textview.text.copyright" />
+
+            <TextView
+                android:id="@+id/tvMemberOfTeam"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvCopyright"
+                android:layout_marginTop="@dimen/activity_vertical_margin_small"
+                android:gravity="center"
+                android:text="@string/textview.text.member_of_team" />
+
+        </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>
