@@ -17,7 +17,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        int timeDuration=2000;
+        int timeDuration=3000;
         mProgressBar=(ProgressBar)findViewById(R.id.progressBar);
         mProgressBar.setVisibility(View.VISIBLE);
         new Handler().postDelayed(new Runnable() {

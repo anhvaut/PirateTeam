@@ -34,14 +34,14 @@ import static com.example.xoapit.piratenews.Activities.SettingActivity.readSetti
 import static com.example.xoapit.piratenews.Fragments.ArticleFragment.readDataFromUrl;
 
 public class SearchActivity extends AppCompatActivity {
-
-    private String mTextSearch = "";
-    private List<Article> mArticles;
     private SearchView mSearchView;
     private ArticleAdapter mArticleAdapter;
-    private int mTypeNormalNews = 2;
     private RecyclerView mRecyclerView;
+    private List<Article> mArticles;
     private ArrayList<String> mTitleArticles;
+    private String mTextSearch = "";
+    private int mTypeNormalNews = 2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,7 +163,7 @@ public class SearchActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void checkAndSetSetting(){
+    private void checkAndSetSetting() {
         try {
             String settingInfo = readSettingFromFile(getBaseContext());
             String arrSetting[] = settingInfo.split("-");
@@ -178,7 +178,7 @@ public class SearchActivity extends AppCompatActivity {
         }
     }
 
-    private void initToolbar(){
+    private void initToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarSearch);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

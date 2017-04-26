@@ -36,8 +36,8 @@ public class SettingActivity extends AppCompatActivity {
     private Button mBtnOk;
 
     private String font = "Helvetica";
-    private int fontSize = 0;
     private String theme = "light";
+    private int fontSize = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

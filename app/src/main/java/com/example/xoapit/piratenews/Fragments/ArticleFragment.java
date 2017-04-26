@@ -1,5 +1,8 @@
 package com.example.xoapit.piratenews.Fragments;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -8,6 +11,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -40,6 +44,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Vector;
 
 public class ArticleFragment extends Fragment {
     private List<Article> mArticles;
@@ -48,6 +53,9 @@ public class ArticleFragment extends Fragment {
     private int mType;
     private String mUrl;
     private boolean mIsOnline = true;
+    private NotificationCompat.Builder mBuilder;
+    private static final int MY_NOTIFICATION_ID = 12345;
+    private static final int MY_REQUEST_CODE = 100;
 
     public ArticleFragment(String url, int type) {
         this.mType = type;
@@ -71,6 +79,8 @@ public class ArticleFragment extends Fragment {
             Toast.makeText(getContext(), "No Connection", Toast.LENGTH_SHORT).show();
             mIsOnline = false;
         }
+        mBuilder = new NotificationCompat.Builder(getContext());
+        mBuilder.setAutoCancel(true);
     }
 
     @Override
@@ -87,7 +97,7 @@ public class ArticleFragment extends Fragment {
         if (!mIsOnline) {
             mArticles = readArticlesOffline();
         }
-        if (mArticles != null) {
+        if (!mArticles.isEmpty()) {
             int typeBothNormalHotNews = 0;
             int typeHotNews = 1;
             int typeNormalNews = 2;
@@ -114,6 +124,8 @@ public class ArticleFragment extends Fragment {
                         }
                     })
             );
+        }else{
+            Toast.makeText(getContext(),"Not Conected",Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -137,6 +149,12 @@ public class ArticleFragment extends Fragment {
                 Document document = parser.getDocument(s);
                 NodeList nodeList = document.getElementsByTagName("item");
                 NodeList nodeListDescription = document.getElementsByTagName("description");
+
+                Element elementNotification = (Element) nodeList.item(0);
+                String notificationTitle = parser.getValue(elementNotification,"title");
+                String notificationLink = parser.getValue(elementNotification,"link");
+                String notificationDate = parser.getValue(elementNotification,"pubDate");
+                Notify(notificationTitle, notificationDate,notificationLink);
 
                 int numberOfArticles = nodeList.getLength();
                 int numberOfHotNews = 5;
@@ -187,7 +205,9 @@ public class ArticleFragment extends Fragment {
                 mIsOnline = false;
             }
             initArticle();
-            mArticleAdapter.notifyDataSetChanged();
+            if(!mArticles.isEmpty()){
+                mArticleAdapter.notifyDataSetChanged();
+            }
             super.onPostExecute(s);
         }
     }
@@ -196,14 +216,11 @@ public class ArticleFragment extends Fragment {
         StringBuilder content = new StringBuilder();
 
         try {
-            // create a url object
             URL url = new URL(theUrl);
-            // create a urlconnection object
             URLConnection urlConnection = url.openConnection();
-            // wrap the urlconnection in a bufferedreader
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
             String line;
-            // read from the urlconnection via the bufferedreader
+            // read from the url connection via the bufferedreader
             while ((line = bufferedReader.readLine()) != null) {
                 content.append(line + "\n");
             }
@@ -228,6 +245,9 @@ public class ArticleFragment extends Fragment {
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        if(articles==null){
+            return (ArrayList) Collections.emptyList();
         }
         return articles;
     }
@@ -261,5 +281,23 @@ public class ArticleFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+    }
+
+    //setting notification
+    private void Notify(String notificationTitle, String notificationDate, String notificationURL){
+        mBuilder.setSmallIcon(R.mipmap.ic_launcher);
+        mBuilder.setTicker("Tin mới nhất");
+        mBuilder.setWhen(System.currentTimeMillis() + 10*1000);
+        mBuilder.setContentTitle(notificationTitle);
+        mBuilder.setContentText(notificationDate);
+
+        Intent intent = new Intent(getContext(), ContentActivity.class);
+        intent.putExtra("URL", notificationURL);
+        PendingIntent pendingIntent = PendingIntent.getActivity(getContext(), MY_REQUEST_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        mBuilder.setContentIntent(pendingIntent);
+
+        NotificationManager manager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+        Notification notification = mBuilder.build();
+        manager.notify(1,notification);
     }
 }
